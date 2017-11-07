@@ -1,0 +1,6 @@
+ofxCv
+ofxFaceTracker
+ofxGui
+ofxHAPAVPlayer
+ofxOpenCv
+ofxOsc
