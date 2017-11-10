@@ -4,11 +4,11 @@
 void ofApp::setup(){
     
     dir.allowExt("mov");
-    dir.listDir(ofToDataPath("/Users/fidelialam/Documents/USC/605/FinalProject/videos/"));
+    dir.listDir(ofToDataPath("/Users/fidelialam/Documents/USC/605/FinalProject/videos/selected/"));
     currentFileIndex = 0;
     
-    bLoadRandom = true;
-    bTestDtor = false;
+    bLoadRandom = false;
+    bTestDtor = true;
     
     vid.load(dir.getPath(currentFileIndex));
     vid.play();
@@ -17,8 +17,8 @@ void ofApp::setup(){
     vidPtr->load(dir.getPath(currentFileIndex));
     vidPtr->play();
     vidPtr->setPosition(0.5);
-    vidPtr->setSpeed(3.0);
-    vidPtr->setLoopState(OF_LOOP_PALINDROME);
+    vidPtr->setSpeed(2.0);
+    vidPtr->setLoopState(OF_LOOP_NONE);
 }
 
 //--------------------------------------------------------------
@@ -26,12 +26,13 @@ void ofApp::update(){
     vid.update();
     vidPtr->update();
     if(ofGetFrameNum() % 20 == 0 && bLoadRandom) keyReleased(' ');
+    //if (vidPtr->getIsMovieDone()) keyReleased(' ');
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    vid.draw(0,0);
-    vidPtr->draw(640, 0);
+    vid.draw(0,0, 1280,800);
+    //vidPtr->draw(0, 0, 1280,800);
     ostringstream os;
     os << "FPS: " << ofGetFrameRate() << endl;
     os << "Frame/Total: "   << vid.getCurrentFrame() << " / " << vid.getTotalNumFrames() << " "
@@ -56,17 +57,22 @@ void ofApp::keyReleased(int key){
     switch (key) {
         case ' ':
         {
+            spacePress++;
             currentFileIndex++;
             if(currentFileIndex == dir.size()) currentFileIndex = 0;
             vid.load(dir.getPath(currentFileIndex));
             vid.play();
+            bTestDtor = true;
             
             if(bTestDtor){
                 vidPtr = shared_ptr<ofxHAPAVPlayer>(new ofxHAPAVPlayer);
                 vidPtr->load(dir.getPath(currentFileIndex));
                 vidPtr->play();
-                vidPtr->setSpeed(3.0);
+                vidPtr->setSpeed(2.0);
+                bTestDtor = false;
             }
+            
+            cout << "Space pressed " << spacePress << endl;
             
             //cout << dir.getPath(currentFileIndex) << endl;
             

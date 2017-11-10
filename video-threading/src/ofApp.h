@@ -25,6 +25,7 @@ public:
     bool bLoadRandom;
     bool bTestDtor;
     
+    int spacePress;
     int currentFileIndex;
     ofDirectory dir;
     

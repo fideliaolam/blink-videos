@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:">
+      location = "self:/Users/fidelialam/Documents/of_v0.9.8_osx_release/apps/myApps/blink_videos/threaded-video/threaded-video.xcodeproj">
    </FileRef>
 </Workspace>
